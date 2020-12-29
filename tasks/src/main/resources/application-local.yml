@@ -1,0 +1,9 @@
+spring:
+  h2.console:
+    enabled: true
+    path: '/console'
+  datasource:
+    url: 'jdbc:h2:file:/home/kamillodzinski/git_work/Tasks-SpringBoot-Udemy/Tasks-SpringBoot-FlayWay/tasks/todo-tasks'
+  jpa:
+    hibernate:
+      ddl-auto: validate
