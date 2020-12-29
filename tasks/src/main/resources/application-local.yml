@@ -3,7 +3,9 @@ spring:
     enabled: true
     path: '/console'
   datasource:
-    url: 'jdbc:h2:file:/home/kamillodzinski/git_work/Tasks-SpringBoot-Udemy/Tasks-SpringBoot-FlayWay/tasks/todo-tasks'
+    url: 'jdbc:h2:file:/home/kamillodzinski/git_work/Tasks-SpringBoot-Udemy/Tasks-SpringBoot-FlayWay/tasks/H2TODOFILE'
   jpa:
     hibernate:
       ddl-auto: validate
+  flyway:
+    baselineOnMigrate: true

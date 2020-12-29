@@ -1,14 +1,14 @@
 package com.responsywnie.tasks.controller;
 
-import com.responsywnie.tasks.model.Tasks;
+import com.responsywnie.tasks.model.Task;
 import com.responsywnie.tasks.repositories.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.awt.print.Pageable;
 import java.net.URI;
 import java.util.List;
 
@@ -24,39 +24,47 @@ public class TaskController {
     }
 
     @GetMapping(value = "/tasks", params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<Tasks>> readAllTasks() {
+    ResponseEntity<List<Task>> readAllTasks() {
         logger.warn("Exposing all the task!");
         return ResponseEntity.ok(repository.findAll());
     }
-    @GetMapping("/tasks")
-    ResponseEntity<Tasks> readTask(@PathVariable int id){
+//    @GetMapping(value = "/tasks")
+//    ResponseEntity<List<Task>> readAllTasks(Pageable page) {
+//        logger.info("Custom pageable");
+//        return ResponseEntity.ok(repository.findAll(page).getContent());
+//    }
+    @GetMapping("/tasks/{id}")
+    ResponseEntity<Task> readTask(@PathVariable int id){
         return repository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
     @PostMapping("/tasks")
-    ResponseEntity<Tasks> createTask(@RequestBody @Valid Tasks toCreate){
-        Tasks result = repository.save(toCreate);
-        return ResponseEntity.created(URI.create("/" + result.toString())).body(result);
+    ResponseEntity<Task> createTask(@RequestBody @Valid Task toCreate){
+        Task result = repository.save(toCreate);
+        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 
     @PutMapping("/tasks/{id}")
-    ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody @Valid Tasks toUpdate){
+    ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody @Valid Task toUpdate){
         if (!repository.existsById(id)){
             return ResponseEntity.notFound().build();
         }
         repository.findById(id)
-                .ifPresent(repository::save);
-
+                .ifPresent(task -> {
+                    task.updateForm(toUpdate);
+                    repository.save(task);
+                });
         return ResponseEntity.noContent().build();
     }
-//    @Transactional
-//    @PatchMapping("/tasks/{id}")
-//    public ResponseEntity<?> toggleTasks(@PathVariable int id){
-//        if (!repository.existsById(id)){
-//            return ResponseEntity.notFound().build();
-//        }
-//        repository.findById(id)
-//                .ifPresent(task -> tasks.setDone(!tasks.isDone()));
-//        return ResponseEntity.noContent().build();
+    @Transactional
+    @PatchMapping("/tasks/{id}")
+    public ResponseEntity<?> toggleTask(@PathVariable int id){
+        if (!repository.existsById(id)){
+            return ResponseEntity.notFound().build();
+        }
+        repository.findById(id)
+                .ifPresent(task -> task.setDone(!task.isDone()));
+        return ResponseEntity.noContent().build();
+    }
     }
