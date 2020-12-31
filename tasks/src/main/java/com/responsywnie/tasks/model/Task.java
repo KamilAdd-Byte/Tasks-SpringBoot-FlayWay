@@ -36,10 +36,10 @@ public class Task{
     private void setId(int id) {
         this.id = id;
     }
-    private String getDescription() {
+    public String getDescription() {
         return description;
     }
-    private void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
     public boolean isDone() {
