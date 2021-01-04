@@ -52,7 +52,7 @@ public class TaskController {
         }
         repository.findById(id)
                 .ifPresent(task -> {
-                    task.updateForm(toUpdate);
+                    task.updateFrom(toUpdate);
                     repository.save(task);
                 });
         return ResponseEntity.noContent().build();
