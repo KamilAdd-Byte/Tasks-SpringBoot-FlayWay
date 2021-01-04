@@ -17,12 +17,16 @@ public class ProjectService {
     private TaskGroupRepository taskGroupRepository;
     private TasksConfigurationProperties config;
 
+    public ProjectService(Object o, TaskGroupRepository mockGroupRepository, TasksConfigurationProperties mockConfig) {
+    }
+
     public List<Project> readAll(){
         return repository.findAll();
     }
     public Project save(final Project toSave){
         return repository.save(toSave);
     }
+
     public GroupReadModel createGroup(LocalDateTime deadline,int projectId){
         if (!config.getTemplate().isAllowMultipleTasks() && taskGroupRepository.existsByDoneIsFalseAndProject_Id(projectId)){
             throw new IllegalStateException("Only one undone group from project is allowed");
