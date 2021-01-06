@@ -17,7 +17,11 @@ public class ProjectService {
     private TaskGroupRepository taskGroupRepository;
     private TasksConfigurationProperties config;
 
-    public ProjectService(Object o, TaskGroupRepository mockGroupRepository, TasksConfigurationProperties mockConfig) {
+    public ProjectService(ProjectRepository repository, TaskGroupRepository taskGroupRepository,
+                           TasksConfigurationProperties config) {
+        this.repository = repository;
+        this.taskGroupRepository = taskGroupRepository;
+        this.config = config;
     }
 
     public List<Project> readAll(){
