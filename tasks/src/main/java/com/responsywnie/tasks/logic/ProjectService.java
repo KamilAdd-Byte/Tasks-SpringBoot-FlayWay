@@ -7,7 +7,6 @@ import com.responsywnie.tasks.model.TaskGroup;
 import com.responsywnie.tasks.model.projection.GroupReadModel;
 import com.responsywnie.tasks.repositories.ProjectRepository;
 import com.responsywnie.tasks.repositories.TaskGroupRepository;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;

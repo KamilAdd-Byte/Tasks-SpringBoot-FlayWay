@@ -1,0 +1,20 @@
+package com.responsywnie.tasks.logic;
+
+import com.responsywnie.tasks.config.TasksConfigurationProperties;
+import com.responsywnie.tasks.repositories.ProjectRepository;
+import com.responsywnie.tasks.repositories.TaskGroupRepository;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class LogicConfiguration {
+
+    @Bean
+    ProjectService projectService(
+            final ProjectRepository projectRepository,
+            final TaskGroupRepository taskGroupRepository,
+            final TasksConfigurationProperties config
+    ){
+        return new ProjectService(projectRepository,taskGroupRepository,config);
+    }
+}
