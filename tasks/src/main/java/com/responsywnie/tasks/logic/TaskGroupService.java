@@ -1,21 +1,13 @@
 package com.responsywnie.tasks.logic;
 
-import com.responsywnie.tasks.config.TasksConfigurationProperties;
 import com.responsywnie.tasks.model.TaskGroup;
 import com.responsywnie.tasks.model.projection.GroupReadModel;
 import com.responsywnie.tasks.model.projection.GroupWriteModel;
 import com.responsywnie.tasks.repositories.TaskGroupRepository;
 import com.responsywnie.tasks.repositories.TaskRepository;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.RequestScope;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-@RequestScope
 public class TaskGroupService {
     private TaskGroupRepository repository;
     private TaskRepository taskRepository;
@@ -40,5 +32,7 @@ public class TaskGroupService {
         TaskGroup result = repository.findById(groupId)
                 .orElseThrow(()-> new IllegalArgumentException("TaskGroup with given id not found"));
         result.setDone(!result.isDone());
+        repository.save(result);
     }
+
 }

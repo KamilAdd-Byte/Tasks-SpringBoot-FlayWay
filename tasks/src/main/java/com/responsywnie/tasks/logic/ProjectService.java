@@ -7,7 +7,6 @@ import com.responsywnie.tasks.model.TaskGroup;
 import com.responsywnie.tasks.model.projection.GroupReadModel;
 import com.responsywnie.tasks.repositories.ProjectRepository;
 import com.responsywnie.tasks.repositories.TaskGroupRepository;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +16,11 @@ public class ProjectService {
     private TaskGroupRepository taskGroupRepository;
     private TasksConfigurationProperties config;
 
-    public ProjectService(Object o, TaskGroupRepository mockGroupRepository, TasksConfigurationProperties mockConfig) {
+    public ProjectService(ProjectRepository repository, TaskGroupRepository taskGroupRepository,
+                           TasksConfigurationProperties config) {
+        this.repository = repository;
+        this.taskGroupRepository = taskGroupRepository;
+        this.config = config;
     }
 
     public List<Project> readAll(){
@@ -42,7 +45,8 @@ public class ProjectService {
                                     deadline.plusDays(projectStep.getDaysToDeadline())
                             )).collect(Collectors.toSet())
                     );
-                    return targetGroup;
+                    targetGroup.setProject(project);
+                    return taskGroupRepository.save(targetGroup);
                 }).orElseThrow(()-> new IllegalArgumentException("Project with given id not found"));
         return new GroupReadModel(result);
     }
