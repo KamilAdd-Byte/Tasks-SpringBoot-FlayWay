@@ -6,7 +6,6 @@ import com.responsywnie.tasks.repositories.TaskGroupRepository;
 import com.responsywnie.tasks.repositories.TaskRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 public class LogicConfiguration {
