@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Field;
 import java.util.*;
 
 @Configuration
@@ -63,7 +64,17 @@ public class TestConfiguration {
 
             @Override
             public Task save(Task entity) {
-                return taskMap.put(taskMap.size() + 1, entity);
+                int key = taskMap.size() + 1;
+
+                try {
+                    var field = Task.class.getDeclaredField("id");
+                    field.setAccessible(true);
+                    field.set(entity, key);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+                taskMap.put(key, entity);
+                return taskMap.get(key);
             }
         };
     }
