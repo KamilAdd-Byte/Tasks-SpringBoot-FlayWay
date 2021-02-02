@@ -1,5 +1,6 @@
 package com.responsywnie.tasks.controller;
 
+import com.responsywnie.tasks.logic.TaskService;
 import com.responsywnie.tasks.model.Task;
 import com.responsywnie.tasks.repositories.TaskRepository;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/tasks")
@@ -19,15 +21,17 @@ public class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
 
     private final TaskRepository repository;
+    private final TaskService service;
 
-    public TaskController(final TaskRepository repository) {
+    public TaskController(final TaskRepository repository, TaskService service) {
         this.repository = repository;
+        this.service = service;
     }
 
     @GetMapping(params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<Task>> readAllTasks() {
+    CompletableFuture<ResponseEntity<List<Task>>> readAllTasks() {
         logger.warn("Exposing all the task!");
-        return ResponseEntity.ok(repository.findAll());
+        return service.findAllAsync().thenApply(ResponseEntity::ok);
     }
     @GetMapping
     ResponseEntity<List<Task>> readAllTasks(Pageable page) {
@@ -40,6 +44,7 @@ public class TaskController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
     @GetMapping(value = "/search/done")
     ResponseEntity<List<Task>> readDoneTasks(@RequestParam(defaultValue = "true") boolean state){
         return ResponseEntity.ok(
