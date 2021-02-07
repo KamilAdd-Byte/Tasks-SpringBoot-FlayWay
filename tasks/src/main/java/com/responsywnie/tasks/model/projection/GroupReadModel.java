@@ -2,13 +2,12 @@ package com.responsywnie.tasks.model.projection;
 
 import com.responsywnie.tasks.model.Task;
 import com.responsywnie.tasks.model.TaskGroup;
-
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GroupReadModel {
+    private int id;
     private String description;
     /**
      * Deadline from the last latest task in group.
@@ -17,6 +16,7 @@ public class GroupReadModel {
     Set<GroupTaskReadModel>tasks;
 
     public GroupReadModel(TaskGroup source) {
+        id = source.getId();
         description = source.getDescription();
         source.getTasks().stream()
                 .map(Task::getDeadline)
@@ -49,4 +49,13 @@ public class GroupReadModel {
     public void setTasks(Set<GroupTaskReadModel> tasks) {
         this.tasks = tasks;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
+
