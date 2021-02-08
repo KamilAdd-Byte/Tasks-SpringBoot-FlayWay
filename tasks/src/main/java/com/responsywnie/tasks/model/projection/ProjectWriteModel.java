@@ -12,11 +12,11 @@ public class ProjectWriteModel {
 
     private List<ProjectStep> steps;
 
-    private String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    private void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
