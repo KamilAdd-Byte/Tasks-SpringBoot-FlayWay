@@ -5,6 +5,7 @@ import com.responsywnie.tasks.model.Project;
 import com.responsywnie.tasks.model.projection.GroupReadModel;
 import com.responsywnie.tasks.model.projection.GroupTaskWriteModel;
 import com.responsywnie.tasks.model.projection.GroupWriteModel;
+import com.responsywnie.tasks.model.projection.ProjectWriteModel;
 import com.responsywnie.tasks.repositories.ProjectRepository;
 import com.responsywnie.tasks.repositories.TaskGroupRepository;
 import java.time.LocalDateTime;
@@ -29,8 +30,9 @@ public class ProjectService {
     public List<Project> readAll(){
         return repository.findAll();
     }
-    public Project save(final Project toSave){
-        return repository.save(toSave);
+
+    public Project save(final ProjectWriteModel toSave){
+        return repository.save(toSave.toProject());
     }
 
     public GroupReadModel createGroup(LocalDateTime deadline,int projectId){
@@ -51,7 +53,7 @@ public class ProjectService {
                                          }
                                    ).collect(Collectors.toSet())
                     );
-                    return taskGroupService.createGroup(targetGroup);
+                    return taskGroupService.createGroup(targetGroup, project);
                 }).orElseThrow(()-> new IllegalArgumentException("Project with given id not found"));
         return result;
     }

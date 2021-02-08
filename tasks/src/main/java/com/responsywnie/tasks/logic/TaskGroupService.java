@@ -1,5 +1,6 @@
 package com.responsywnie.tasks.logic;
 
+import com.responsywnie.tasks.model.Project;
 import com.responsywnie.tasks.model.TaskGroup;
 import com.responsywnie.tasks.model.projection.GroupReadModel;
 import com.responsywnie.tasks.model.projection.GroupWriteModel;
@@ -17,9 +18,14 @@ public class TaskGroupService {
         this.taskRepository = taskRepository;
     }
     public GroupReadModel createGroup(final GroupWriteModel source){
-        TaskGroup result = repository.save(source.toGroup());
+        return createGroup(source,null);
+    }
+
+    GroupReadModel createGroup(final GroupWriteModel source, final Project project) {
+        TaskGroup result = repository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
+
     public List<GroupReadModel>readAll(){
         return repository.findAll().stream()
                 .map(GroupReadModel::new)
@@ -34,4 +40,6 @@ public class TaskGroupService {
         result.setDone(!result.isDone());
         repository.save(result);
     }
+
+
 }
