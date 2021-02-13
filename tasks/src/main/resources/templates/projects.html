@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm_theme_black.min.css">
 </head>
 <body>
+<h1 th:align="center">Task-app TODO with UDEMY</h1>
 <main>
 	<!--/*@thymesVar id="project" type="com.responsywnie.tasks.model.projection.ProjectWriteModel"*/-->
 	<form action="#" method="post" th:action="@{/projects}" th:object="${project}">
@@ -15,8 +16,22 @@
 			<label>Opis
 				<input type="text" th:field="*{description}"/>
 			</label>
+			<fieldset>
+				<legend>Krok 1</legend>
+				<label>Opis
+					<input type="text" th:field="*{steps[0].description}"/>
+				</label>
+				<label>Dni do końca
+					<input type="text" th:field="*{steps[0].daysToDeadline}"/>
+				</label>
+			</fieldset>
+
+
+
+
 		</fieldset>
 	</form>
+
 </main>
 </body>
 </html>

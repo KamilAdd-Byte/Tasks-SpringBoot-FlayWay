@@ -3,6 +3,7 @@ package com.responsywnie.tasks.model.projection;
 import com.responsywnie.tasks.model.Project;
 import com.responsywnie.tasks.model.ProjectStep;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -10,7 +11,11 @@ public class ProjectWriteModel {
     @NotBlank(message = "Project step's description must not be empty")
     private String description;
 
-    private List<ProjectStep> steps;
+    private List<ProjectStep> steps = new ArrayList<>();
+
+    public ProjectWriteModel() {
+        steps.add(new ProjectStep());
+    }
 
     public String getDescription() {
         return description;
@@ -20,11 +25,11 @@ public class ProjectWriteModel {
         this.description = description;
     }
 
-    private List<ProjectStep> getSteps() {
+    public List<ProjectStep> getSteps() {
         return steps;
     }
 
-    private void setSteps(List<ProjectStep> steps) {
+    public void setSteps(List<ProjectStep> steps) {
         this.steps = steps;
     }
 
