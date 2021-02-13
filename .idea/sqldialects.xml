@@ -4,6 +4,8 @@
     <file url="file://$PROJECT_DIR$/tasks/src/main/java/com/responsywnie/tasks/config/adapter/SqlRepository.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/tasks/src/main/resources/db/migration/V1__init.sql" dialect="H2" />
     <file url="file://$PROJECT_DIR$/tasks/src/main/resources/db/migration/V3__add_deadline_column.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/tasks/src/main/resources/db/migration/V4__add_created_and_updated_columns.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/tasks/src/main/resources/db/migration/V5__init_task_groups_table.sql" dialect="H2" />
     <file url="file://$PROJECT_DIR$/tasks/src/main/resources/db/migration/V6__init_project_tables.sql" dialect="GenericSQL" />
   </component>
 </project>
