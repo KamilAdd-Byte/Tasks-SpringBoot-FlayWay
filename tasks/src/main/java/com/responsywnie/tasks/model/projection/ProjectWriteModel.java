@@ -21,7 +21,7 @@ public class ProjectWriteModel {
         this.description = description;
     }
 
-    private List<ProjectStep> getSteps() {
+    public List<ProjectStep> getSteps() {
         return steps;
     }
 
