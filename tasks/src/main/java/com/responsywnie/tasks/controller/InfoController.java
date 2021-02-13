@@ -12,16 +12,18 @@ public class InfoController {
     private final TasksConfigurationProperties myProp;
     private final DataSourceProperties properties;
 
-    private InfoController(final TasksConfigurationProperties myProp,final DataSourceProperties properties) {
+    private InfoController(final TasksConfigurationProperties myProp, final DataSourceProperties properties) {
         this.myProp = myProp;
         this.properties = properties;
     }
+
     @GetMapping("/url")
-    String url(){
+    String url() {
         return properties.getUrl();
     }
+
     @GetMapping("/prop")
-    boolean myProp(){
+    boolean myProp() {
         return myProp.getTemplate().isAllowMultipleTasks();
     }
 }

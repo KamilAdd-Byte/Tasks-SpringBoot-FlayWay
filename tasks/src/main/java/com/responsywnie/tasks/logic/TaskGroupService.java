@@ -6,19 +6,21 @@ import com.responsywnie.tasks.model.projection.GroupReadModel;
 import com.responsywnie.tasks.model.projection.GroupWriteModel;
 import com.responsywnie.tasks.repositories.TaskGroupRepository;
 import com.responsywnie.tasks.repositories.TaskRepository;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class TaskGroupService {
-    private TaskGroupRepository repository;
-    private TaskRepository taskRepository;
+    private final TaskGroupRepository repository;
+    private final TaskRepository taskRepository;
 
-    public TaskGroupService(final TaskGroupRepository repository,final TaskRepository taskRepository) {
+    public TaskGroupService(final TaskGroupRepository repository, final TaskRepository taskRepository) {
         this.repository = repository;
         this.taskRepository = taskRepository;
     }
-    public GroupReadModel createGroup(final GroupWriteModel source){
-        return createGroup(source,null);
+
+    public GroupReadModel createGroup(final GroupWriteModel source) {
+        return createGroup(source, null);
     }
 
     GroupReadModel createGroup(final GroupWriteModel source, final Project project) {
@@ -26,17 +28,18 @@ public class TaskGroupService {
         return new GroupReadModel(result);
     }
 
-    public List<GroupReadModel>readAll(){
+    public List<GroupReadModel> readAll() {
         return repository.findAll().stream()
                 .map(GroupReadModel::new)
                 .collect(Collectors.toList());
     }
-    public void toggleGroup(int groupId){
-        if (taskRepository.existsByDoneIsFalseAndGroup_Id(groupId)){
+
+    public void toggleGroup(int groupId) {
+        if (taskRepository.existsByDoneIsFalseAndGroup_Id(groupId)) {
             throw new IllegalStateException("Group has undone tasks. Done all the tasks first");
         }
         TaskGroup result = repository.findById(groupId)
-                .orElseThrow(()-> new IllegalArgumentException("TaskGroup with given id not found"));
+                .orElseThrow(() -> new IllegalArgumentException("TaskGroup with given id not found"));
         result.setDone(!result.isDone());
         repository.save(result);
     }

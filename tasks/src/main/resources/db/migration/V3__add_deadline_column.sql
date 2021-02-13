@@ -1,1 +1,2 @@
-alter table tasks add column deadline datetime null;
+alter table tasks
+    add column deadline datetime null;

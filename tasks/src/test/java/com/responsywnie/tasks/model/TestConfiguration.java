@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Field;
 import java.util.*;
 
 @Configuration
@@ -19,7 +18,7 @@ public class TestConfiguration {
     @Bean
     @Primary
     @Profile("!integration")
-    DataSource e2eTestDataSource(){
+    DataSource e2eTestDataSource() {
         var result = new DriverManagerDataSource("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "sa", "");
         result.setDriverClassName("org.h2.Driver");
         return result;
@@ -30,7 +29,7 @@ public class TestConfiguration {
     @Profile("integration")
     TaskRepository testRepo() {
         return new TaskRepository() {
-            private Map<Integer, Task> taskMap = new HashMap<>();
+            private final Map<Integer, Task> taskMap = new HashMap<>();
 
             @Override
             public List<Task> findAll() {

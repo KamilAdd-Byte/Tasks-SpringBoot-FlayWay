@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -17,11 +18,11 @@ public class LoggerFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if (request instanceof HttpServletRequest){
+        if (request instanceof HttpServletRequest) {
             var httpRequest = (HttpServletRequest) request;
             logger.info("[doFilter] " + httpRequest.getMethod() + " " + httpRequest.getRequestURI());
         }
-        chain.doFilter(request,response);//łańcuch procesowania
+        chain.doFilter(request, response);//łańcuch procesowania
         logger.info(" [doFilter] 2 ");
     }
 }

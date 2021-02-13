@@ -18,8 +18,9 @@ public class TaskService {
     public TaskService(TaskRepository repository) {
         this.repository = repository;
     }
+
     @Async
-    public CompletableFuture<List<Task>> findAllAsync(){
+    public CompletableFuture<List<Task>> findAllAsync() {
         logger.info("Supply async!");
         return CompletableFuture.supplyAsync(repository::findAll);
     }

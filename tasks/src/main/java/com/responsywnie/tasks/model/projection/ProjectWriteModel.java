@@ -2,6 +2,7 @@ package com.responsywnie.tasks.model.projection;
 
 import com.responsywnie.tasks.model.Project;
 import com.responsywnie.tasks.model.ProjectStep;
+
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ProjectWriteModel {
         this.steps = steps;
     }
 
-    public Project toProject(){
+    public Project toProject() {
         var result = new Project();
         result.setDescription(description);
         steps.forEach(step -> step.setProject(result));

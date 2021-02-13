@@ -5,7 +5,9 @@ import com.responsywnie.tasks.repositories.TaskGroupRepository;
 import com.responsywnie.tasks.repositories.TaskRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -22,7 +24,7 @@ class TaskGroupServiceTest {
         //system under test
         var toTest = new TaskGroupService(null, mockTaskRepository);
         //when
-        var exception = catchThrowable(()->toTest.toggleGroup(1));
+        var exception = catchThrowable(() -> toTest.toggleGroup(1));
         //then
         assertThat(exception)
                 .isInstanceOf(IllegalStateException.class)
@@ -31,7 +33,7 @@ class TaskGroupServiceTest {
 
     @Test
     @DisplayName("should throw when no group")
-    void toggleGroup_wrongID_throwsIllegalArgumentException(){
+    void toggleGroup_wrongID_throwsIllegalArgumentException() {
         //given
         TaskRepository mockTaskRepository = taskRepositoryReturning(false);
         //and
@@ -40,16 +42,17 @@ class TaskGroupServiceTest {
         //system under test
         var toTest = new TaskGroupService(mockRepository, mockTaskRepository);
         //when
-        var exception = catchThrowable(()->toTest.toggleGroup(1));
+        var exception = catchThrowable(() -> toTest.toggleGroup(1));
         //then
         assertThat(exception)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("id not found");
 
     }
+
     @Test
     @DisplayName("should toggle group")
-    void toggleGroup_worksAsExcepted(){
+    void toggleGroup_worksAsExcepted() {
         //given
         TaskRepository mockTaskRepository = taskRepositoryReturning(false);
         //and
@@ -66,6 +69,7 @@ class TaskGroupServiceTest {
 
 
     }
+
     private TaskRepository taskRepositoryReturning(final boolean result) {
         var mockTaskRepository = mock(TaskRepository.class);
         when(mockTaskRepository.existsByDoneIsFalseAndGroup_Id(anyInt())).thenReturn(result);

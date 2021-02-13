@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class GroupWriteModel {
     private String description;
-    private Set<GroupTaskWriteModel>tasks;
+    private Set<GroupTaskWriteModel> tasks;
 
     public String getDescription() {
         return description;
@@ -26,13 +26,13 @@ public class GroupWriteModel {
         this.tasks = tasks;
     }
 
-    public TaskGroup toGroup(Project project){
+    public TaskGroup toGroup(Project project) {
         var result = new TaskGroup();
         result.setDescription(description);
         result.setTasks(
                 tasks.stream()
-                .map(source -> source.toTask(result))
-                .collect(Collectors.toSet())
+                        .map(source -> source.toTask(result))
+                        .collect(Collectors.toSet())
         );
         result.setProject(project);
         return result;

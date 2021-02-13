@@ -6,10 +6,11 @@ public class GroupTaskReadModel {
     private String description;
     private boolean done;
 
-    GroupTaskReadModel(Task source){
+    GroupTaskReadModel(Task source) {
         description = source.getDescription();
         done = source.isDone();
     }
+
     public String getDescription() {
         return description;
     }
