@@ -1,6 +1,7 @@
 package com.responsywnie.tasks.controller;
 
 import com.responsywnie.tasks.logic.ProjectService;
+import com.responsywnie.tasks.model.Project;
 import com.responsywnie.tasks.model.ProjectStep;
 import com.responsywnie.tasks.model.projection.ProjectWriteModel;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/projects")
@@ -29,7 +32,7 @@ public class ProjectController {
     String addProject(@ModelAttribute("project") ProjectWriteModel current, Model model) {
         projectService.save(current);
         model.addAttribute("project", new ProjectWriteModel());
-        model.addAttribute("message", "Dodano projekt");
+        model.addAttribute("message", "Dodano projekt!");
         return "projects";
 
     }
@@ -38,5 +41,10 @@ public class ProjectController {
     String addProjectStep(@ModelAttribute("project") ProjectWriteModel current) {
         current.getSteps().add(new ProjectStep());
         return "projects";
+    }
+
+    @ModelAttribute("projects")
+    List<Project>getProjects(){
+        return projectService.readAll();
     }
 }
