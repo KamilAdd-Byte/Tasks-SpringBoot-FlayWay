@@ -24,7 +24,7 @@ public class Project {
         return id;
     }
 
-    void setId(final int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
@@ -36,11 +36,11 @@ public class Project {
         this.description = description;
     }
 
-    Set<TaskGroup> getGroups() {
+    public Set<TaskGroup> getGroups() {
         return groups;
     }
 
-    void setGroups(final Set<TaskGroup> groups) {
+    public void setGroups(final Set<TaskGroup> groups) {
         this.groups = groups;
     }
 
