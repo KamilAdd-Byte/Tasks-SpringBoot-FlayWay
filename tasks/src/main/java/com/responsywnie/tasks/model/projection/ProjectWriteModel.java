@@ -2,7 +2,6 @@ package com.responsywnie.tasks.model.projection;
 
 import com.responsywnie.tasks.model.Project;
 import com.responsywnie.tasks.model.ProjectStep;
-
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.HashSet;

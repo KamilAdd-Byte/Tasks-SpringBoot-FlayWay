@@ -8,7 +8,6 @@ import com.responsywnie.tasks.model.projection.GroupWriteModel;
 import com.responsywnie.tasks.model.projection.ProjectWriteModel;
 import com.responsywnie.tasks.repositories.ProjectRepository;
 import com.responsywnie.tasks.repositories.TaskGroupRepository;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
